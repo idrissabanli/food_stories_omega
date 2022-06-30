@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block link %}
+    <link rel="stylesheet" href="http:////netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+{% endblock %}
+
+{% block content %}
+
+    <section class="ftco-section ftco-no-pt ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="user-profile-side-bar sidebar-wrap">
+                        <div class="sidebar-box p-4 about text-center ftco-animate">
+                            <h2 class="heading mb-4">About Me</h2>
+                            <img src="{{user.image.url}}" class="img-fluid" alt="Colorlib Template">
+                            <div class="text pt-4">
+                                <p>Hi! My name is <strong>{{ user.get_full_name }}</strong> {{user.bio}}</p>
+                            </div>
+                        </div>
+                        <div class="sidebar-box ftco-animate user-profile">
+
+                            <a href="single.html" class="btn btn-hover-color py-2">Edit Profile</a>
+
+                        </div>
+                        <div class="sidebar-box ftco-animate user-profile">
+                            <a href="{% url 'create_story' %}" class="btn btn-hover-color py-2">Create story </a>
+                        </div>
+                        <div class="sidebar-box ftco-animate user-profile">
+                            <a href="single.html" class="btn btn-hover-color py-2">Create recipe </a>
+                        </div>
+                        <div class="sidebar-box p-4 ftco-animate">
+                            <form action="#" class="search-form">
+                                <div class="form-group">
+                                    <span class="icon icon-search"></span>
+                                    <input type="text" class="form-control" placeholder="Search">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-md-12 heading-section ftco-animate">
+                            <h2 class="mb-4"><span>My stories and recipes</span></h2>
+                        </div>
+                    </div>
+                    
+                   
+                    <div class="row">
+                    {% for story in user.stories.all %}
+                        <div class="col-md-4 ftco-animate">
+                            <div class="blog-entry">
+                                <a class="img-2">
+
+                                    <div class="user-events__edit">
+                                        <button type="button" class="edit-event"><a href="{% url 'update_story' story.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a></button>
+                                        <button type="button" class="delete-event"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </div>
+
+                                    <img src="{{ story.image.url }}" class="img-fluid" alt="Colorlib Template">
+                                </a>
+                                <div class="text pt-3">
+                                    <p class="meta d-flex"><span class="pr-3">{{ story.category }}</span><span class="ml-auto pl-3">{{ story.created_at|date:"F d, Y" }}</span>
+                                    </p>
+                                    <h3><a href="#">{{ story.title }}</a></h3>
+                                    <p class="mb-0"><a href="single.html" class="btn btn-black py-2">Read More <span
+                                        class="icon-arrow_forward ml-4"></span></a></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

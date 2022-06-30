@@ -1,0 +1,186 @@
+(.venv) ➜  food_stories git:(master) ✗ ./manage.py shell
+Python 3.9.5 (default, May  4 2021, 03:36:27) 
+[Clang 12.0.0 (clang-1200.0.32.29)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from stories.models import Contact
+>>> c = Contact(name='Idris', email='idris@gmail.com', subject=1, message='slkdfn')
+>>> c.save()
+>>> Contact.objects.create(name='Idris', email='idris@gmail.com', subject=1, message='slkdfnsdklfnsljfsdfnjskbnkdfjdnsfkdjnsfkjsdnfjksdnfjkndsfkjsnd')
+<Contact: Idris>
+>>> Contact.objects.all()
+<QuerySet [<Contact: Idris Shabanli>, <Contact: Idris>, <Contact: Idris>]>
+>>> Contact.objects.get(id=1)
+<Contact: Idris Shabanli>
+>>> Contact.objects.get(name='Idris')
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/Users/idrissabanli/TAGroups/omega_lesson_codes/food_stories/.venv/lib/python3.9/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/idrissabanli/TAGroups/omega_lesson_codes/food_stories/.venv/lib/python3.9/site-packages/django/db/models/query.py", line 443, in get
+    raise self.model.MultipleObjectsReturned(
+stories.models.Contact.MultipleObjectsReturned: get() returned more than one Contact -- it returned 2!
+>>> Contact.objects.filter(name='Idris')
+<QuerySet [<Contact: Idris>, <Contact: Idris>]>
+>>> Contact.objects.get(name='Idris').first()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/Users/idrissabanli/TAGroups/omega_lesson_codes/food_stories/.venv/lib/python3.9/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/idrissabanli/TAGroups/omega_lesson_codes/food_stories/.venv/lib/python3.9/site-packages/django/db/models/query.py", line 443, in get
+    raise self.model.MultipleObjectsReturned(
+stories.models.Contact.MultipleObjectsReturned: get() returned more than one Contact -- it returned 2!
+>>> Contact.objects.get(name='Idris').first()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/Users/idrissabanli/TAGroups/omega_lesson_codes/food_stories/.venv/lib/python3.9/site-packages/django/db/models/manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/Users/idrissabanli/TAGroups/omega_lesson_codes/food_stories/.venv/lib/python3.9/site-packages/django/db/models/query.py", line 443, in get
+    raise self.model.MultipleObjectsReturned(
+stories.models.Contact.MultipleObjectsReturned: get() returned more than one Contact -- it returned 2!
+>>> Contact.objects.filter(name='Idris').first()
+<Contact: Idris>
+>>> Contact.objects.filter(name='Idris')
+<QuerySet [<Contact: Idris>, <Contact: Idris>]>
+>>> Contact.objects.get(name='Idrisddd')
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/Users/idrissabanli/TAGroups/omega_lesson_codes/food_stories/.ve
+>>> category = Category.objects.first()
+>>> category
+<Category: dessert>
+>>> user = User.objects.first()
+>>> user
+<User: idris>
+>>> category.title
+'dessert'
+>>> category.image
+<ImageFieldFile: media/categories/2.png>
+>>> categoryid
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'categoryid' is not defined
+>>> category.id
+1
+>>> user.first_name
+''
+>>> user.username
+'idris'
+>>> category
+<Category: dessert>
+>>> user
+<User: idris>
+>>> story = Story.objects.create(category=category, author=user, title='story', image='image.png', cover_image='image.png', content='skjdfdsjkf')
+>>> story.author.username
+'idris'
+>>> user.username
+'idris'
+>>> story.category.title
+'dessert'
+>>> story.tags
+<django.db.models.fields.related_descriptors.create_forward_many_to_many_manager.<locals>.ManyRelatedManager object at 0x1097367f0>
+>>> story.tags.all()
+<QuerySet []>
+>>> story.category
+<Category: dessert>
+>>> category
+<Category: dessert>
+>>> category.stories.all()
+<QuerySet [<Story: Story object (1)>, <Story: Story object (2)>]>
+>>> hekayeler = category.stories.all()
+>>> for i in hekayeler:
+...     print(i.title, i.image, i.category)
+... 
+Tasty food media/story_images/1.png dessert
+story image.png dessert
+>>> hekayeler = category.stories.values()
+>>> hekayeler
+<QuerySet [{'id': 1, 'created_at': datetime.datetime(2022, 3, 10, 15, 47, 0, 256636, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 10, 15, 49, 7, 216389, tzinfo=datetime.timezone.utc), 'category_id': 1, 'author_id': 1, 'title': 'Tasty food', 'image': 'media/story_images/1.png', 'cover_image': 'media/story_cover_images/3.png', 'content': 'sldkflkdsnfkdsldknflsdkfn'}, {'id': 2, 'created_at': datetime.datetime(2022, 3, 10, 16, 3, 42, 107184, tzinfo=datetime.timezone.utc), 'updated_at': datetime.datetime(2022, 3, 10, 16, 3, 42, 107223, tzinfo=datetime.timezone.utc), 'category_id': 1, 'author_id': 1, 'title': 'story', 'image': 'image.png', 'cover_image': 'image.png', 'content': 'skjdfdsjkf'}]>
+>>> story.tags.all()
+<QuerySet []>
+>>> story.tags.add(Tag.objects.first())
+>>> story.tags.all()
+<QuerySet [<Tag: Dessert>]>
+>>> story.tags.add(Tag.objects.get(id=2))
+>>> story.tags.add(Tag.objects.all()[1])
+>>> story.tags.add(Tag.objects.all()[2])
+>>> story.tags.remove(Tag.objects.all()[2])
+>>> Tag.objects.all()[:1]
+<QuerySet [<Tag: Dessert>]>
+>>> Tag.objects.all()[:2]
+<QuerySet [<Tag: Dessert>, <Tag: Travel>]>
+>>> w = Tag.objects.all()[:2]
+>>> print(w.query)
+SELECT "stories_tag"."id", "stories_tag"."created_at", "stories_tag"."updated_at", "stories_tag"."title" FROM "stories_tag" LIMIT 2
+>>> w = Tag.objects.all()[1:2]
+>>> print(w.query)
+SELECT "stories_tag"."id", "stories_tag"."created_at", "stories_tag"."updated_at", "stories_tag"."title" FROM "stories_tag" LIMIT 1 OFFSET 1
+>>> tags = Tag.objects.all()
+>>> tags
+<QuerySet [<Tag: Dessert>, <Tag: Travel>, <Tag: Food>]>
+>>> tags
+<QuerySet [<Tag: Dessert>, <Tag: Travel>, <Tag: Food>, <Tag: Tag #4>]>
+>>> tags.filter(title='Dessert')
+<QuerySet [<Tag: Dessert>]>
+>>> a = tags.filter(title='Dessert')
+>>> Story.objects.filter(tags__title='Dessert')
+<QuerySet [<Story: Story object (2)>]>
+>>> Story.objects.filter(author__username='idris')
+<QuerySet [<Story: Story object (1)>, <Story: Story object (2)>]>
+>>> Story.objects.filter(title='story')
+<QuerySet [<Story: Story object (2)>]>
+>>> Story.objects.filter(title__startswith='s')
+<QuerySet [<Story: Story object (2)>]>
+>>> Story.objects.filter(title__contains='s')
+<QuerySet [<Story: Story object (1)>, <Story: Story object (2)>]>
+>>> Story.objects.filter(title__contains='s')
+<QuerySet [<Story: Story object (1)>]>
+>>> Story.objects.filter(title__icontains='s')
+<QuerySet [<Story: Story object (1)>, <Story: Story object (2)>]>
+>>> s = Story.objects.filter(title__icontains='s')
+>>> print(s.query)
+SELECT "stories_story"."id", "stories_story"."created_at", "stories_story"."updated_at", "stories_story"."category_id", "stories_story"."author_id", "stories_story"."title", "stories_story"."image", "stories_story"."cover_image", "stories_story"."content" FROM "stories_story" WHERE UPPER("stories_story"."title"::text) LIKE UPPER(%s%)
+>>> s = Story.objects.filter(id__lt=1)
+>>> s
+<QuerySet []>
+>>> s = Story.objects.filter(id__gt=1)
+>>> s
+<QuerySet [<Story: Story object (2)>]>
+>>> s = Story.objects.filter(id__gte=1)
+>>> s
+<QuerySet [<Story: Story object (1)>, <Story: Story object (2)>]>
+>>> s = Story.objects.filter(created_at__year__gte=2022)
+>>> s
+<QuerySet [<Story: Story object (1)>, <Story: Story object (2)>]>
+>>> s = Story.objects.filter(created_at__year__gt=2022)
+>>> s
+<QuerySet []>
+>>> Tag.objects.all()
+<QuerySet [<Tag: Dessert>, <Tag: Travel>, <Tag: Food>, <Tag: Tag #4>]>
+>>> t = Tag.objects.first()
+>>> t
+<Tag: Dessert>
+>>> t.title = 'dessert'
+>>> t.save()
+>>> Tag.objects.filter(title__icontains='t')
+<QuerySet [<Tag: Travel>, <Tag: Tag #4>, <Tag: dessert>]>
+>>> Tag.objects.filter(title__icontains='t').update(title='sport')
+3
+>>> Tag.objects.filter(title__icontains='t')
+<QuerySet [<Tag: sport>, <Tag: sport>, <Tag: sport>]>
+>>> Tag.objects.filter(title__icontains='t').delete()
+(6, {'stories.Story_tags': 3, 'stories.Tag': 3})
+>>> a,b, c = Tag.objects.filter(title__icontains='t').delete()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+ValueError: not enough values to unpack (expected 3, got 2)
+>>> Story.objects.filter(title__icontains='s')
+<QuerySet [<Story: Story object (1)>, <Story: Story object (2)>]>
+>>> Story.objects.exclude(title__icontains='s')
+<QuerySet []>
+>>> Story.objects.filter(title__icontains='s', tags__title='Food')
+<QuerySet [<Story: Story object (1)>]>
+>>> Story.objects.filter(models.Q(title='story') |  models.Q(title='Tasty food'))
+<QuerySet [<Story: Story object (1)>]>
+>>> Story.objects.filter(models.Q(title='Story') |  models.Q(title='Tasty food'))
+<QuerySet [<Story: Story object (1)>, <Story: Story object (2)>]>
