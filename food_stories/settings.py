@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+gz*$^e0h6d!2sw%80vj6#a5g27syo#^%ms=qy0jh!&1iu*op$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False # if os.environ.get('DEBUG') else True
+DEBUG = False if os.environ.get('DEBUG') else True
 
 ALLOWED_HOSTS = ['*']
 
@@ -145,7 +145,6 @@ WSGI_APPLICATION = 'food_stories.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-print(3*'\n', os.environ.get('POSTGRES_PASSWORD', '12345'), 3*'\n',)
 
 DATABASES = {
     'default': {
