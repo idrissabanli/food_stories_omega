@@ -1,6 +1,16 @@
 version: '3.1'
 
 services:
+    nginx:
+        build: ./nginx
+        ports:
+          - 80:80
+        depends_on:
+          - web
+        volumes:
+          - ./static/:/code/static/
+          - ./media/:/code/media/
+
     db:
         image: postgres
         restart: always
